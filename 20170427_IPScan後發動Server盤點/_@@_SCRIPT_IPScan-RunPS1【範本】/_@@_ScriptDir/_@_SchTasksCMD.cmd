@@ -1,0 +1,1 @@
+schtasks /query /v /fo csv /s %computername% > c:\rm\OneTimeJob\_%computername%_CMDSchtasks.csv

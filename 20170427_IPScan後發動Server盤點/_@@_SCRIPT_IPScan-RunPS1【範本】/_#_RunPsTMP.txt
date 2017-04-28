@@ -1,0 +1,20 @@
+@echo OFF
+
+SET @Prefix=_@_ScanIPList.txt
+
+for /f %%i in (.\%@Prefix%) do (
+	Echo ===========================================================================================
+	Echo %%i %date% %time%
+	set IPHostFileName=
+	set IP=
+	set IP=%%i
+	robocopy .\ \\%%i\c$\rm\OneTimeJob _@_SchTasksCMD.cmd /r:3 /w:0
+	start "%%i" psexec \\%%i -n 600 c:\rm\OneTimeJob\_@_SchTasksCMD.cmd
+	timeout /T 20
+	for /f %%n in ('dir /b \\%%i\c$\rm\OneTimeJob\_*_CMDSchtasks.csv') do (
+	copy \\%%i\c$\rm\OneTimeJob\%%n .\%%i%%n
+	set IPHostFileName=%%i%%n
+	)
+	robocopy \\%%i\c$\rm\OneTimeJob .\ _*_CMDSchtasks.csv /r:3 /w:0
+)
+EXIT

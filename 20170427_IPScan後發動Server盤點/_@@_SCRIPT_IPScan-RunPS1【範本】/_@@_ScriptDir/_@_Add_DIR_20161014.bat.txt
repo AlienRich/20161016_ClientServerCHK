@@ -1,0 +1,18 @@
+@echo off
+SET CPPS1=.\_$$_ClientServer½LÂI_20161014.ps1
+
+For /f "tokens=1-3 delims=/ " %%a in ('date /t') do (set Today=%%a%%b%%c)
+For /f "tokens=2-3 delims=/: " %%a in ('time /t') do (set ATtime=%%a%%b)
+echo %Today%_%ATtime%
+set RunDATE=%mydate%
+set RunTime=%ATtime%
+
+mkdir .\Domain-UserID && copy %CPPS1% .\Domain-UserID\_$$_%RunDATE%Domain-UserID.ps1
+
+copy _@_* .\Domain-UserID
+
+copy PsInfo.exe .\Domain-UserID
+
+dir /s /-b _$$_%RunDATE%_*.ps1
+
+PAUSE
